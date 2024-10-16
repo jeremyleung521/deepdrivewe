@@ -54,6 +54,8 @@ class AmberSimulation(BaseModel):
         'input_file and top_file will be copied by default.',
     )
 
+    rng: np.random.Generator = np.random.default_rng()
+
     @property
     def trajectory_file(self) -> Path:
         """The trajectory file for the simulation."""
@@ -102,7 +104,7 @@ class AmberSimulation(BaseModel):
         stderr = self.output_dir / 'stderr.log'
 
         # Set the random seed
-        seed = np.random.randint(0, 2**16)
+        seed = self.rng.integers(2**16)
 
         # Populate the input_file with the random seed
         command = f"sed -i 's/RAND/{seed}/g' {self.input_file}"

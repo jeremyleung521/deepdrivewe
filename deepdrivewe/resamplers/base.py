@@ -21,6 +21,7 @@ class Resampler(ABC):
     def __init__(self) -> None:
         """Initialize the resampler."""
         self._index_counter = itertools.count()
+        self.rng = np.random.default_rng()
 
     def run(
         self,
@@ -190,7 +191,7 @@ class Resampler(ABC):
 
         # Randomly select one of the simulations with probability equal
         # to the normalized weights
-        select: int = np.random.choice(len(to_merge), p=norm_weights)
+        select: int = self.rng.choice(len(to_merge), p=norm_weights)
 
         # Compute the union of all the wtg_parent_ids
         all_wtg_parent_ids = [set(sim.wtg_parent_ids) for sim in to_merge]

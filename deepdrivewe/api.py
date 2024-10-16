@@ -317,6 +317,7 @@ class BasisStates(BaseModel):
         ]
 
         # Initialize the basis states
+        # TODO: Add option where basis state weights are not uniform.
         self.basis_states = self._uniform_init(basis_files, basis_pcoords)
 
         # Set the number of basis files

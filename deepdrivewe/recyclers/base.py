@@ -24,6 +24,7 @@ class Recycler(ABC):
             The basis states for the weighted ensemble.
         """
         self.basis_states = basis_states
+        self.rng = np.random.default_rng()
 
     def recycle_simulations(
         self,
@@ -64,7 +65,7 @@ class Recycler(ABC):
             sim = _next_sims[idx]
 
             # Choose a random basis state to restart the simulation from
-            basis_state = np.random.choice(self.basis_states)
+            basis_state = self.rng.choice(self.basis_states)
 
             # Create the metadata for the new simulation
             new_sim = SimMetadata(
